@@ -1,0 +1,1058 @@
+Frame Elimination
+
+Input: A set of extracted frames
+https://www.dropbox.com/s/ai5vkcg9se7fqby/AllExtractedFrames.zip?dl=0
+
+Output:  A set of key frames based on image similarity
+https://www.dropbox.com/s/mu7a55ypiln2vvh/ExtractedKeyFrames.zip?dl=0
+
+Logs::
+
+Total Initial frame count 513
+Could not find mediaLib accelerator wrapper classes. Continuing in pure Java mode.
+100.0 percent similarity found
+99.22255442010595 percent similarity found
+97.67150335812848 percent similarity found
+95.40666086233166 percent similarity found
+91.24858796295746 percent similarity found
+89.60994903168702 percent similarity found
+90.42197136928365 percent similarity found
+90.40417809361763 percent similarity found
+89.75537178112293 percent similarity found
+Removing 9similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 504
+96.1815887377511 percent similarity found
+89.69241800516892 percent similarity found
+90.12474540075334 percent similarity found
+89.69765075133434 percent similarity found
+91.13281540606826 percent similarity found
+89.58442645142419 percent similarity found
+90.64501965896761 percent similarity found
+90.46924646690093 percent similarity found
+89.71317688761432 percent similarity found
+Removing 9similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 495
+91.19025020489715 percent similarity found
+91.11695930440769 percent similarity found
+91.56107132547893 percent similarity found
+90.83550010970042 percent similarity found
+90.0169550207239 percent similarity found
+89.66471002170884 percent similarity found
+90.61579028084293 percent similarity found
+90.76023031338343 percent similarity found
+Removing 8similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 487
+92.76954643715128 percent similarity found
+89.90366275597502 percent similarity found
+90.21792215258361 percent similarity found
+90.11318004189826 percent similarity found
+90.76222485864693 percent similarity found
+92.27306609052667 percent similarity found
+91.82681314157587 percent similarity found
+92.13860777212777 percent similarity found
+92.41764582803647 percent similarity found
+93.64798689195874 percent similarity found
+90.66677676259994 percent similarity found
+89.92388472226735 percent similarity found
+90.08837120534947 percent similarity found
+92.12413284753413 percent similarity found
+Removing 14similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 473
+91.29636548551728 percent similarity found
+89.94320126683515 percent similarity found
+90.62465079237927 percent similarity found
+91.20938689137479 percent similarity found
+89.88020152248765 percent similarity found
+90.02409563258865 percent similarity found
+90.75991707468431 percent similarity found
+89.74985807315826 percent similarity found
+90.73309782722697 percent similarity found
+90.17525321537072 percent similarity found
+89.82391460984537 percent similarity found
+89.72037985681433 percent similarity found
+89.70448223826702 percent similarity found
+89.75700035131302 percent similarity found
+Removing 14similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 459
+89.7708499035837 percent similarity found
+90.04279081045838 percent similarity found
+92.08359331913547 percent similarity found
+89.85772213255031 percent similarity found
+90.77531405513412 percent similarity found
+91.48851591577684 percent similarity found
+Removing 6similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 453
+92.1038940768035 percent similarity found
+91.68781142681802 percent similarity found
+91.16525086574075 percent similarity found
+91.12695306843432 percent similarity found
+90.29212683750828 percent similarity found
+91.09900006621893 percent similarity found
+90.87628309879386 percent similarity found
+Removing 7similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 446
+97.11679557268931 percent similarity found
+89.83637584166088 percent similarity found
+90.01319113316909 percent similarity found
+90.91361453820892 percent similarity found
+90.04920977199508 percent similarity found
+91.8581435551424 percent similarity found
+91.83698923265148 percent similarity found
+90.9910066942255 percent similarity found
+91.53596760545301 percent similarity found
+89.75265495355187 percent similarity found
+91.68975716652314 percent similarity found
+91.27227390579374 percent similarity found
+89.68489362215061 percent similarity found
+Removing 13similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 433
+Removing 0similar images
+Size after Removal 433
+92.8489667928904 percent similarity found
+91.26585009005632 percent similarity found
+91.28935107945533 percent similarity found
+91.0918544103872 percent similarity found
+92.144521486087 percent similarity found
+92.37286177338774 percent similarity found
+93.21600180776421 percent similarity found
+89.65191042487068 percent similarity found
+89.79731168475173 percent similarity found
+91.09021960632187 percent similarity found
+91.49478938511274 percent similarity found
+93.55049619153665 percent similarity found
+93.35405763104285 percent similarity found
+91.92896349369103 percent similarity found
+92.05835504813619 percent similarity found
+91.91749203312546 percent similarity found
+Removing 16similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 417
+95.37970151367163 percent similarity found
+90.41838387779376 percent similarity found
+90.92247952721065 percent similarity found
+90.83873293452982 percent similarity found
+93.4447258475094 percent similarity found
+93.43441377403776 percent similarity found
+89.96131481270137 percent similarity found
+92.4616299235131 percent similarity found
+92.33784806026158 percent similarity found
+91.54279340288915 percent similarity found
+90.48164469815903 percent similarity found
+90.31791185848405 percent similarity found
+90.82389141110762 percent similarity found
+90.56671136330004 percent similarity found
+91.4412540238956 percent similarity found
+92.0644654098933 percent similarity found
+90.64619621500675 percent similarity found
+90.73477286350484 percent similarity found
+91.80062925689019 percent similarity found
+Removing 19similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 398
+89.57319303073827 percent similarity found
+90.34257370328369 percent similarity found
+92.71659817479839 percent similarity found
+97.59823929342008 percent similarity found
+89.92583050268543 percent similarity found
+90.03033118750281 percent similarity found
+89.79428595592442 percent similarity found
+89.59209050124205 percent similarity found
+89.67707345361679 percent similarity found
+90.16240935133361 percent similarity found
+90.37329111336447 percent similarity found
+91.06999148841682 percent similarity found
+91.8741385670709 percent similarity found
+91.30694652244489 percent similarity found
+96.2314909807145 percent similarity found
+96.25258793281851 percent similarity found
+96.0306694772381 percent similarity found
+95.99234648235786 percent similarity found
+92.0751590588374 percent similarity found
+92.16210411130143 percent similarity found
+Removing 20similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 378
+90.97673526726007 percent similarity found
+90.8224483751159 percent similarity found
+90.75464185536967 percent similarity found
+90.1362791012607 percent similarity found
+90.42295458091633 percent similarity found
+90.57580435690106 percent similarity found
+Removing 6similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 372
+89.99277951223364 percent similarity found
+89.6311757721545 percent similarity found
+91.41995764337555 percent similarity found
+97.50247943545847 percent similarity found
+96.67831112743742 percent similarity found
+92.70819264525944 percent similarity found
+92.56201338177914 percent similarity found
+93.2386270355507 percent similarity found
+92.937910031119 percent similarity found
+90.8418619297957 percent similarity found
+91.00647443297052 percent similarity found
+91.94569787214132 percent similarity found
+90.88294384563252 percent similarity found
+92.09927447896627 percent similarity found
+90.07200209516577 percent similarity found
+90.44327276852898 percent similarity found
+89.6544272060267 percent similarity found
+90.38098130189076 percent similarity found
+90.94102105156246 percent similarity found
+Removing 19similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 353
+91.35290950494769 percent similarity found
+90.2857616350748 percent similarity found
+Removing 2similar images
+Removed
+Removed
+Size after Removal 351
+91.63661439191648 percent similarity found
+91.09058784200508 percent similarity found
+90.2555032292164 percent similarity found
+91.77543212835357 percent similarity found
+91.41214963395038 percent similarity found
+90.37885716542009 percent similarity found
+90.29635317404052 percent similarity found
+90.04780988527374 percent similarity found
+89.91204698582722 percent similarity found
+90.31026198677543 percent similarity found
+89.67234779644426 percent similarity found
+Removing 11similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 340
+90.63191997695277 percent similarity found
+Removing 1similar images
+Removed
+Size after Removal 339
+96.88946889463105 percent similarity found
+92.09193251740383 percent similarity found
+90.51677101467826 percent similarity found
+89.594999216292 percent similarity found
+89.96184079748865 percent similarity found
+94.59584638366013 percent similarity found
+95.53856878176157 percent similarity found
+96.295308700873 percent similarity found
+96.66077654193188 percent similarity found
+96.92894384701238 percent similarity found
+98.11260319539008 percent similarity found
+98.46279256009812 percent similarity found
+90.96493150982701 percent similarity found
+90.44031239081482 percent similarity found
+90.87956369986222 percent similarity found
+90.60444524621181 percent similarity found
+90.50901190339594 percent similarity found
+90.58230259643315 percent similarity found
+91.18711785526239 percent similarity found
+90.79299347843421 percent similarity found
+90.84676928139888 percent similarity found
+90.56991419644906 percent similarity found
+Removing 22similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 317
+91.89604209080315 percent similarity found
+91.82912100711596 percent similarity found
+92.46638014125341 percent similarity found
+92.90231886577787 percent similarity found
+92.69099569155134 percent similarity found
+91.88368512385077 percent similarity found
+92.48017172584308 percent similarity found
+90.2076410083915 percent similarity found
+92.3788232964629 percent similarity found
+91.98267156847822 percent similarity found
+94.41888357152662 percent similarity found
+93.969094354222 percent similarity found
+91.06604342406717 percent similarity found
+90.89267125341645 percent similarity found
+90.35628166767556 percent similarity found
+90.41881363890397 percent similarity found
+90.56677707114125 percent similarity found
+91.70491992424445 percent similarity found
+92.66705595549709 percent similarity found
+93.10619263843542 percent similarity found
+92.67836425942141 percent similarity found
+Removing 21similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 296
+95.88305729872654 percent similarity found
+90.83712007373211 percent similarity found
+91.27996754108516 percent similarity found
+90.16980713121546 percent similarity found
+Removing 4similar images
+Removed
+Removed
+Removed
+Removed
+Size after Removal 292
+90.71944950946049 percent similarity found
+89.84034210613939 percent similarity found
+90.17076388244436 percent similarity found
+92.80505142678311 percent similarity found
+91.14058836566893 percent similarity found
+89.96880631290223 percent similarity found
+90.11087403382483 percent similarity found
+91.25155121983214 percent similarity found
+89.7324249098817 percent similarity found
+89.58394989486384 percent similarity found
+91.26332418583068 percent similarity found
+91.80808366454463 percent similarity found
+93.79267553871001 percent similarity found
+90.88685759800548 percent similarity found
+91.29618020202993 percent similarity found
+91.14571693903027 percent similarity found
+91.0161371022658 percent similarity found
+89.72451146197974 percent similarity found
+Removing 18similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 274
+90.56877689727295 percent similarity found
+91.43713969544271 percent similarity found
+89.7057487549499 percent similarity found
+91.1306268289621 percent similarity found
+89.86657950744781 percent similarity found
+Removing 5similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 269
+91.31093694814777 percent similarity found
+92.10358162430595 percent similarity found
+91.67521115530579 percent similarity found
+93.12206368393284 percent similarity found
+93.27259403158034 percent similarity found
+93.49355788676922 percent similarity found
+91.58982775931052 percent similarity found
+91.59338754256329 percent similarity found
+91.48016685257299 percent similarity found
+91.78955589691759 percent similarity found
+91.26884830066719 percent similarity found
+89.92041564943055 percent similarity found
+90.3835444849961 percent similarity found
+Removing 13similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 256
+89.9673758152919 percent similarity found
+89.84494220895392 percent similarity found
+90.95573043987201 percent similarity found
+Removing 3similar images
+Removed
+Removed
+Removed
+Size after Removal 253
+90.43539005709812 percent similarity found
+90.31113343508923 percent similarity found
+91.69278763557172 percent similarity found
+89.75206299683961 percent similarity found
+91.61885692520124 percent similarity found
+91.86513612083677 percent similarity found
+90.48884329123595 percent similarity found
+92.29485789008383 percent similarity found
+91.6140269211114 percent similarity found
+90.16052493350416 percent similarity found
+89.79516374553586 percent similarity found
+90.1459272456144 percent similarity found
+91.20006484343891 percent similarity found
+92.14554041080767 percent similarity found
+92.69509447283758 percent similarity found
+Removing 15similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 238
+90.45599761501275 percent similarity found
+89.78916701719534 percent similarity found
+90.21720283577919 percent similarity found
+92.3587382156367 percent similarity found
+92.58216795313967 percent similarity found
+93.41734178949598 percent similarity found
+93.34378089208793 percent similarity found
+90.35391885900664 percent similarity found
+90.999120263029 percent similarity found
+91.70900547452698 percent similarity found
+90.47099944148036 percent similarity found
+91.5391851823093 percent similarity found
+90.38656190613887 percent similarity found
+89.79107267290188 percent similarity found
+89.99706506793851 percent similarity found
+Removing 15similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 223
+Removing 0similar images
+Size after Removal 223
+95.82855331388787 percent similarity found
+91.56989795317031 percent similarity found
+89.93537297350454 percent similarity found
+91.35720407724412 percent similarity found
+89.95248421929465 percent similarity found
+89.56985376021422 percent similarity found
+89.8831401283687 percent similarity found
+89.99831799508824 percent similarity found
+Removing 8similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 215
+96.60600917399313 percent similarity found
+Removing 1similar images
+Removed
+Size after Removal 214
+98.44407868138832 percent similarity found
+Removing 1similar images
+Removed
+Size after Removal 213
+Removing 0similar images
+Size after Removal 213
+89.80122856040123 percent similarity found
+89.89952332959423 percent similarity found
+90.45565076725333 percent similarity found
+Removing 3similar images
+Removed
+Removed
+Removed
+Size after Removal 210
+91.72541472260954 percent similarity found
+90.90669201370152 percent similarity found
+89.75370879304091 percent similarity found
+90.17169241045106 percent similarity found
+89.94706566729344 percent similarity found
+90.02878131654319 percent similarity found
+90.26682443347079 percent similarity found
+91.15078378503934 percent similarity found
+91.95700304681102 percent similarity found
+91.8853380542794 percent similarity found
+91.82035800940697 percent similarity found
+92.28226781070582 percent similarity found
+91.17728959017963 percent similarity found
+90.62838191840244 percent similarity found
+89.88377967046144 percent similarity found
+Removing 15similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 195
+90.58828085065667 percent similarity found
+Removing 1similar images
+Removed
+Size after Removal 194
+90.78512194048719 percent similarity found
+89.99700553914246 percent similarity found
+90.58229390600472 percent similarity found
+89.6535221257209 percent similarity found
+90.14759982109584 percent similarity found
+91.05616614924008 percent similarity found
+90.13220397046796 percent similarity found
+89.552825333179 percent similarity found
+89.66525833048942 percent similarity found
+90.83568164189812 percent similarity found
+Removing 10similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 184
+95.03225195643533 percent similarity found
+92.06227982671763 percent similarity found
+89.68264763168703 percent similarity found
+89.76731997286916 percent similarity found
+90.54095094106373 percent similarity found
+Removing 5similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 179
+90.0319181368893 percent similarity found
+93.6855933357935 percent similarity found
+93.13009152486543 percent similarity found
+89.6235713220871 percent similarity found
+90.02664638883368 percent similarity found
+89.69782992458552 percent similarity found
+Removing 6similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 173
+90.4833826978615 percent similarity found
+91.90821266113066 percent similarity found
+92.2898645768713 percent similarity found
+92.2878839582375 percent similarity found
+91.33852882633936 percent similarity found
+90.48229935947552 percent similarity found
+90.00953975483179 percent similarity found
+91.61414985611299 percent similarity found
+91.40530072311272 percent similarity found
+91.03672418430368 percent similarity found
+90.5367277493441 percent similarity found
+90.03254649944091 percent similarity found
+90.37227330530256 percent similarity found
+91.00784593540574 percent similarity found
+Removing 14similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 159
+89.9207654010413 percent similarity found
+89.58944507707882 percent similarity found
+89.80602729343053 percent similarity found
+89.7953847317073 percent similarity found
+89.56612632276729 percent similarity found
+90.05331420995905 percent similarity found
+91.47071225092782 percent similarity found
+92.67727728896686 percent similarity found
+92.35901549138161 percent similarity found
+92.17908837335706 percent similarity found
+91.77595946741476 percent similarity found
+92.35531434104766 percent similarity found
+90.19647270280285 percent similarity found
+90.9737618096618 percent similarity found
+90.84991259608542 percent similarity found
+91.17831221797826 percent similarity found
+90.28158694808984 percent similarity found
+Removing 17similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 142
+89.85840026849223 percent similarity found
+90.60339463124063 percent similarity found
+90.62770462206203 percent similarity found
+90.66318304037281 percent similarity found
+90.25402372958092 percent similarity found
+90.64665700057961 percent similarity found
+90.678116874794 percent similarity found
+91.74658039944427 percent similarity found
+Removing 8similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 134
+94.38521462003654 percent similarity found
+90.04415953149177 percent similarity found
+89.61745632975465 percent similarity found
+89.7534452861814 percent similarity found
+89.58814234951424 percent similarity found
+Removing 5similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 129
+92.96173381942026 percent similarity found
+89.81817424535052 percent similarity found
+91.06821691291908 percent similarity found
+91.17458388939895 percent similarity found
+90.037346764331 percent similarity found
+89.68639768128651 percent similarity found
+Removing 6similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 123
+90.71474142871674 percent similarity found
+89.73253771334969 percent similarity found
+92.04139600446904 percent similarity found
+90.6448814150313 percent similarity found
+90.37568652217769 percent similarity found
+90.09564364039956 percent similarity found
+90.11073430682637 percent similarity found
+90.32145297207852 percent similarity found
+90.76932498817617 percent similarity found
+91.42473128519221 percent similarity found
+89.66732751980915 percent similarity found
+90.1896908273248 percent similarity found
+89.94927386126848 percent similarity found
+89.98181431689852 percent similarity found
+Removing 14similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 109
+90.50902615902746 percent similarity found
+90.47987710279715 percent similarity found
+Removing 2similar images
+Removed
+Removed
+Size after Removal 107
+90.02827494655426 percent similarity found
+Removing 1similar images
+Removed
+Size after Removal 106
+91.32831856176867 percent similarity found
+91.34576869091188 percent similarity found
+91.1165438405565 percent similarity found
+91.34684345165921 percent similarity found
+91.09141648858943 percent similarity found
+91.05065944189612 percent similarity found
+90.3223794400423 percent similarity found
+90.7889504247181 percent similarity found
+91.23660310622158 percent similarity found
+91.75141524776757 percent similarity found
+92.65662304998567 percent similarity found
+91.26151916760936 percent similarity found
+Removing 12similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 94
+90.79345841410453 percent similarity found
+92.0870736558788 percent similarity found
+91.9570870329261 percent similarity found
+91.29980011195977 percent similarity found
+90.9775399305065 percent similarity found
+91.23511820331389 percent similarity found
+91.99387718192641 percent similarity found
+91.12246537814134 percent similarity found
+91.19472542873413 percent similarity found
+90.7457954833385 percent similarity found
+90.84741230750161 percent similarity found
+91.45308549931615 percent similarity found
+92.07871356643919 percent similarity found
+92.21713817182517 percent similarity found
+Removing 14similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 80
+94.69001852346705 percent similarity found
+92.23608475835658 percent similarity found
+89.84039626043626 percent similarity found
+Removing 3similar images
+Removed
+Removed
+Removed
+Size after Removal 77
+Removing 0similar images
+Size after Removal 77
+Removing 0similar images
+Size after Removal 77
+97.98256484542324 percent similarity found
+96.25084871091174 percent similarity found
+93.25291503760653 percent similarity found
+97.59854535994324 percent similarity found
+97.32628140267019 percent similarity found
+97.75269405748892 percent similarity found
+98.17463080613058 percent similarity found
+97.81213028891085 percent similarity found
+97.57276035576338 percent similarity found
+97.53694280651865 percent similarity found
+97.06023284630221 percent similarity found
+91.91806676959727 percent similarity found
+90.9470141653601 percent similarity found
+90.34375015250981 percent similarity found
+90.07110115181472 percent similarity found
+90.34164724030799 percent similarity found
+Removing 16similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 67
+93.97254892394977 percent similarity found
+96.74622358711126 percent similarity found
+95.19715885217693 percent similarity found
+95.44610660900969 percent similarity found
+95.04864951747828 percent similarity found
+89.84461281633037 percent similarity found
+92.97007100235196 percent similarity found
+91.79349059382257 percent similarity found
+90.89983944649583 percent similarity found
+Removing 9similar images
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Removed
+Size after Removal 62
+Removing 0similar images
+Size after Removal 62
+Removing 0similar images
+Size after Removal 62
+95.79625562795083 percent similarity found
+92.36418526664667 percent similarity found
+Removing 2similar images
+Removed
+Removed
+Size after Removal 60
+Removing 0similar images
+Size after Removal 60
+90.89941432415857 percent similarity found
+Removing 1similar images
+Removed
+Size after Removal 59
+Removing 0similar images
+Size after Removal 59
+Final frame count 59
+
