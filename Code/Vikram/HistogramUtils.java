@@ -1,3 +1,4 @@
+
 package vikram.hist;
 
 import static com.googlecode.javacv.cpp.opencv_core.cvCreateImage;
@@ -12,8 +13,13 @@ import static com.googlecode.javacv.cpp.opencv_imgproc.cvCvtColor;
 import static com.googlecode.javacv.cpp.opencv_imgproc.cvGetMinMaxHistValue;
 import static com.googlecode.javacv.cpp.opencv_imgproc.cvNormalizeHist;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -21,17 +27,21 @@ import com.googlecode.javacv.cpp.opencv_core.IplImage;
 import com.googlecode.javacv.cpp.opencv_imgproc.CvHistogram;
 
 public class HistogramUtils {
-	private static final String[] pictures = {
-			"C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/cat.jpg",
-			"C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/cat1.jpg",
-			"C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/cat2.jpg",
-			"C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/cat3.jpg",
-			"C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/dave.jpg",
-			"C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/flower.jpg",
-			"C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/lena.jpg",
-			"C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/scene0.jpg"
+	private static final String imageDBDirectory = "C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/";
+	
+	private static final String supportedFormats = "(bmp|pbm|pgm|ppm|sr|ras|jpeg|jpg|jpe|jp2|tiff|tif|png)";
+	
+	private static final String[] queryImages = {
+			imageDBDirectory + "cat.jpg",
+			imageDBDirectory + "cat1.jpg",
+			imageDBDirectory + "cat2.jpg",
+			imageDBDirectory + "cat3.jpg",
+			imageDBDirectory + "dave.jpg",
+			imageDBDirectory + "flower.jpg",
+			imageDBDirectory + "lena.jpg",
+			imageDBDirectory + "scene0.jpg"
 		};
-
+	
 	private static CvHistogram getHueHistogram(IplImage image) {
 		if (image == null || image.nChannels() < 1) {
 			new Exception("Invalid image, could not get Histogram!");
@@ -73,11 +83,30 @@ public class HistogramUtils {
 		return hist;
 	}
 
-	public static void main(String[] args) throws Exception {
-		// Input: Images to compare
-		String queryImageFile = pictures[0];
-		String[] dbImageFiles = pictures;
+	private static List<String> listFilesInDirectory(String directoryPath) {
+		List<String> returnVal = new ArrayList<String>();
+		
+		File[] dirLs = (new File(directoryPath)).listFiles();
 
+		for (File currentFile : dirLs) {
+			if (currentFile.isFile()
+				&& currentFile.getName().matches(".*\\." + HistogramUtils.supportedFormats)) {
+				returnVal.add(currentFile.getAbsolutePath());
+			}
+		}
+		
+		return returnVal;
+	}
+
+	public static void main(String[] args) throws Exception {
+		Map<String, Double> percentageMatches = new HashMap<String, Double>();
+		
+		// Input: Images to compare
+		String queryImageFile = queryImages[0];
+		System.out.println("\nQuery file is: \n\t" + queryImageFile);
+		
+		List<String> dbImageFiles = listFilesInDirectory(imageDBDirectory);
+		
 		for (String dbImageFile : dbImageFiles) {
 			IplImage queryImage = cvLoadImage(queryImageFile);
 			IplImage dbImage = cvLoadImage(dbImageFile);
@@ -87,24 +116,39 @@ public class HistogramUtils {
 
 			double matchPercentage = Math.floor(100 * cvCompareHist(
 					queryImageHistogram, dbImageHistogram, CV_COMP_INTERSECT));
-			System.out.println("\nPercentage match between -\n\t"
-					+ queryImageFile + "\n- and -\n\t" + dbImageFile
-					+ "\n- is " + matchPercentage + "%.");
+			percentageMatches.put(dbImageFile, matchPercentage);
 		}
 
-// TODO-Vikram		printSortedImageMatches();
+		printSearchResults(getSortedSearchResults(percentageMatches));
 	}
-	
-/* TODO-Vikram
-	private static void printSortedImageMatches() {
+
+	private static void printSearchResults(
+			Set<Map.Entry<String, Double>> searchResults) {
+		System.out.println("\n=====================================");
+		System.out.println("The image results, in sorted order :-\n");
+		for (Map.Entry<String, Double> entry : searchResults) {
+			System.out.println(entry.getKey() + "\n\tPercentage: "
+					+ entry.getValue());
+		}
+	}
+
+	private static Set<Map.Entry<String, Double>> getSortedSearchResults(
+			Map<String, Double> mapArg) {
 		SortedSet<Map.Entry<String, Double>> sortedset = new TreeSet<Map.Entry<String, Double>>(
 				new Comparator<Map.Entry<String, Double>>() {
 					@Override
 					public int compare(Map.Entry<String, Double> e1,
 							Map.Entry<String, Double> e2) {
-						return e1.getValue().compareTo(e2.getValue());
+						int compareResult = e2.getValue().compareTo(e1.getValue());
+						if (compareResult != 0) {
+							return compareResult;
+						} else {
+							return 1;
+						}
 					}
 				});
-		sortedset.addAll(myMap.entrySet());
-	}*/
+		sortedset.addAll(mapArg.entrySet());
+		return sortedset;
+	}
+
 }
