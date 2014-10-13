@@ -1,0 +1,28 @@
+===========================================
+This Code performs sample operations on s3 using a little modified version of java sample S3 code provided by amazon
+===========================================
+
+Creating the bucket rahul-sample-s3-bucket-aa60b9ee-e2bf-4ee9-ac80-bbbfbf8959e7
+
+Listing all the buckets
+ - my-first-s3-bucket-2ae966b6-ed00-4e7b-ab76-ddc475919fa4
+ - my-first-s3-bucket-9d176cc9-e4b3-4818-b956-017856526b09
+ - my-first-s3-bucket-d585a24e-8980-403d-86a6-3e82d733ebc2
+ - rahul-cloud-trail
+ - rahul-sample-s3-bucket-48a7f0a6-df2d-4fe0-a9dd-aa8a87c96568
+ - rahul-sample-s3-bucket-aa60b9ee-e2bf-4ee9-ac80-bbbfbf8959e7
+ - rahul-ufl-bucket1
+
+Uploading a new object to S3 from a file
+
+Downloading an object
+Content-Type: text/plain
+    dssadadadasdsadasdasdasdsadasdasdasdasdasdasdasdasd 
+    dasdasdasdasdasdasdqwewqeqweqwewqewewqewqewqewqewew 
+    eqwewqeqwewedasdasdfdgdgdgergweqesdsaqwwedasdasdasd 
+    eqwesfdsrewgdsgertrfgwerervdfgfgdewreadasewdadqwdqw 
+    ljsbsiaasfkjbfuydawfknyfbkjebkufrfdfnasfdsjkfbdskbd 
+
+Listing objects
+ - rahul-sample-s3-object-file  (size = 265)
+
