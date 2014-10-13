@@ -3,7 +3,7 @@ package vikram.hist;
 
 import static com.googlecode.javacv.cpp.opencv_core.cvCreateImage;
 import static com.googlecode.javacv.cpp.opencv_highgui.cvLoadImage;
-import static com.googlecode.javacv.cpp.opencv_imgproc.CV_COMP_INTERSECT;
+import static com.googlecode.javacv.cpp.opencv_imgproc.CV_COMP_CORREL;
 import static com.googlecode.javacv.cpp.opencv_imgproc.CV_HIST_ARRAY;
 import static com.googlecode.javacv.cpp.opencv_imgproc.CV_RGB2GRAY;
 import static com.googlecode.javacv.cpp.opencv_imgproc.cvCalcHist;
@@ -32,6 +32,7 @@ public class HistogramUtils {
 	private static final String supportedFormats = "(bmp|pbm|pgm|ppm|sr|ras|jpeg|jpg|jpe|jp2|tiff|tif|png)";
 	
 	private static final String[] queryImages = {
+			imageDBDirectory + "1413215054781.jpg",
 			imageDBDirectory + "cat.jpg",
 			imageDBDirectory + "cat1.jpg",
 			imageDBDirectory + "cat2.jpg",
@@ -115,7 +116,11 @@ public class HistogramUtils {
 			CvHistogram dbImageHistogram = getHueHistogram(dbImage);
 
 			double matchPercentage = Math.floor(100 * cvCompareHist(
-					queryImageHistogram, dbImageHistogram, CV_COMP_INTERSECT));
+					queryImageHistogram, dbImageHistogram, 
+					CV_COMP_CORREL));
+					// CV_COMP_INTERSECT));
+					// CV_COMP_CHISQR));
+					// CV_COMP_HELLINGER));
 			percentageMatches.put(dbImageFile, matchPercentage);
 		}
 
