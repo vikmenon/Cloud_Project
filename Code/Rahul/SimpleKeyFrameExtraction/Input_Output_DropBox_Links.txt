@@ -1,0 +1,7 @@
+Input :: https://www.dropbox.com/s/ai5vkcg9se7fqby/AllExtractedFrames.zip?dl=0
+
+Output :: https://www.dropbox.com/s/mu7a55ypiln2vvh/ExtractedKeyFrames.zip?dl=0
+
+java media JAI library
+
+major portion of the code is from the JAI sample code
