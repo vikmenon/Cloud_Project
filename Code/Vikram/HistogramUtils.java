@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.googlecode.javacv.CanvasFrame;
 import com.googlecode.javacv.cpp.opencv_core.IplImage;
 import com.googlecode.javacv.cpp.opencv_imgproc.CvHistogram;
 
@@ -30,6 +31,11 @@ public class HistogramUtils {
 	private static final String imageDBDirectory = "C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/";
 	
 	private static final String supportedFormats = "(bmp|pbm|pgm|ppm|sr|ras|jpeg|jpg|jpe|jp2|tiff|tif|png)";
+	
+	private static int SHOW_RESULTS = 1;
+	
+	// Frame to show matched images, an instantiated JavaCV class
+	private static CanvasFrame canvas;
 	
 	private static final String[] queryImages = {
 			imageDBDirectory + "1413215054781.jpg",
@@ -100,7 +106,7 @@ public class HistogramUtils {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Map<String, Double> percentageMatches = new HashMap<String, Double>();
+		Map<String, Double> correlationsMap = new HashMap<String, Double>();
 		
 		// Input: Images to compare
 		String queryImageFile = queryImages[0];
@@ -115,25 +121,36 @@ public class HistogramUtils {
 			CvHistogram queryImageHistogram = getHueHistogram(queryImage);
 			CvHistogram dbImageHistogram = getHueHistogram(dbImage);
 
-			double matchPercentage = Math.floor(100 * cvCompareHist(
+			double correlationNumber = Math.floor(100 * cvCompareHist(
 					queryImageHistogram, dbImageHistogram, 
 					CV_COMP_CORREL));
 					// CV_COMP_INTERSECT));
 					// CV_COMP_CHISQR));
 					// CV_COMP_HELLINGER));
-			percentageMatches.put(dbImageFile, matchPercentage);
+			correlationsMap.put(dbImageFile, correlationNumber);
 		}
 
-		printSearchResults(getSortedSearchResults(percentageMatches));
+		printSearchResults(getSortedSearchResults(correlationsMap));
 	}
 
 	private static void printSearchResults(
 			Set<Map.Entry<String, Double>> searchResults) {
 		System.out.println("\n=====================================");
 		System.out.println("The image results, in sorted order :-\n");
+		int counter = 0;
 		for (Map.Entry<String, Double> entry : searchResults) {
-			System.out.println(entry.getKey() + "\n\tPercentage: "
-					+ entry.getValue());
+			System.out.println(entry.getKey() + "\n\tCorrelation Number: "
+					+ entry.getValue() + "/100.0");
+			IplImage thisImage = cvLoadImage(entry.getKey());
+			if (++counter <= SHOW_RESULTS) {
+				// Create the canvas
+				canvas = new CanvasFrame("Best match #" + counter, 1);
+				canvas.setBounds(0, 0, 570, 320);
+				canvas.setCanvasSize(570, 320);
+				canvas.showImage(thisImage);
+				canvas.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+				canvas.showImage(thisImage);
+			}
 		}
 	}
 
