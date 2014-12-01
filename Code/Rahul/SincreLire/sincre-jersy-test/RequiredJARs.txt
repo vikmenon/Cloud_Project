@@ -1,0 +1,3 @@
+jersey-client.jar
+jersey-common.jar
+jersey-server.jar

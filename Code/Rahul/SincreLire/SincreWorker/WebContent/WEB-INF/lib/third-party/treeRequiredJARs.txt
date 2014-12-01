@@ -1,0 +1,52 @@
+.
++---aspectj-1.6
+¦       aspectjrt.jar
+¦       aspectjweaver.jar
+¦       LICENSE.html
+¦
++---commons-codec-1.6
+¦       commons-codec-1.6.jar
+¦       LICENSE.txt
+¦
++---commons-logging-1.1.3
+¦       commons-logging-1.1.3.jar
+¦       LICENSE.txt
+¦       NOTICE.txt
+¦
++---freemarker-2.3.18
+¦       freemarker-2.3.18.jar
+¦       LICENSE.txt
+¦       NOTICE.txt
+¦
++---httpcomponents-client-4.3
+¦       httpclient-4.3.jar
+¦       httpcore-4.3.jar
+¦       LICENSE.txt
+¦       NOTICE.txt
+¦
++---jackson-annotations-2.3.0
+¦       jackson-annotations-2.3.0.jar
+¦       LICENSE.txt
+¦       NOTICE.txt
+¦
++---jackson-core-2.3.2
+¦       jackson-core-2.3.2.jar
+¦       LICENSE.txt
+¦
++---jackson-databind-2.3.2
+¦       jackson-databind-2.3.2.jar
+¦       LICENSE.txt
+¦
++---javax-mail-1.4.6
+¦       javax.mail-api-1.4.6.jar
+¦       LICENSE.txt
+¦
++---joda-time-2.2
+¦       joda-time-2.2.jar
+¦       LICENSE.txt
+¦
++---spring-3.0
+        LICENSE.txt
+        spring-beans-3.0.7.jar
+        spring-context-3.0.7.jar
+        spring-core-3.0.7.jar
