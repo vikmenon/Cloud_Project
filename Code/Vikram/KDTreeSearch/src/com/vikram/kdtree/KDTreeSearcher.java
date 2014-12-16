@@ -2,6 +2,7 @@ package com.vikram.kdtree;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +25,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 
 public class KDTreeSearcher {
 	public static final Integer NumSearchResults = 6;
+	public static final Integer QueryVectorsSamplingInterval = 1;
 	
 	// KDTREE CONFIGURATION
 	/*
@@ -31,26 +34,39 @@ public class KDTreeSearcher {
 	static final Integer Margin = 50;
 	 */
 	//
-	static final Integer Dims = 64;
+	static Integer Dims = null;
+	static final String DimsKey = "featureVectorDims";
 	static final Integer NumNeighbours = 1;
 	static final Integer Margin = 50;
 	// END KDTREE CONFIGURATION
 
 	// KDTREE DATA STRUCTURE
-	private static KDTree kdTreeObj = new KDTree(KDTreeSearcher.Dims);
+	private static KDTree kdTreeObj = null;
 	private static AmazonS3 s3Client = new AmazonS3Client();
 	private static final String MetadataExt = "xml";
 
+	static {
+		Properties properties = new Properties();
+		try {
+			properties.load(new FileInputStream("Config.properties"));
+			KDTreeSearcher.Dims = Integer.valueOf(properties.getProperty(DimsKey));
+		} catch (Exception e) {
+			System.out.println("ERR: Could not read property so using default : " + DimsKey);
+			KDTreeSearcher.Dims = 64;
+		}
+		kdTreeObj = new KDTree(KDTreeSearcher.Dims);
+	}
+	
 	public static void main(String[] args) {
 		// TEST CONFIGURATION
 		/*
 		 * String searchFrame = "lena"; String basePath =
-		 * "C:/Users/vikmenon/Downloads/11_14_14/OldData/output/"; Boolean
-		 * doNotMatchQueryFrame = true;
+		 * "C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/KDTreeSearch/DaveMetadata/SmallDataset/features";
+		 * Boolean doNotMatchQueryFrame = true;
 		 */
 		//
-		String searchFrame = "206.jpg";
-		String basePath = "C:/Users/vikmenon/Downloads/11_14_14/Dataset1/features/";
+		String searchFrame = "465.jpg";
+		String basePath = "C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/KDTreeSearch/DaveMetadata/BigDataset/features/";
 		Boolean doNotMatchQueryFrame = true;
 		// END TEST CONFIGURATION
 
@@ -73,7 +89,7 @@ public class KDTreeSearcher {
 			// Process the query file.
 			SearchResults results = new SearchResults();
 			findBestMatches(basePath + fileToSearch, results, kdTreeObj);
-			System.out.println("The best matched frame for the query "
+			System.out.println("The best matched movie for the query "
 					+ fileToSearch + " was: " + results.heap.peek());
 
 		} else {
@@ -143,16 +159,24 @@ public class KDTreeSearcher {
 						+ fileToSearch);
 			}
 
-			// Now iterate over the values and push them into the KDTree
+			// Now iterate over the values and compare them to the KDTree
 			Iterator<String> iter = allMatches.iterator();
 			ArrayList<Double> doubleBuffer = new ArrayList<Double>();
 
-			int count = 0;
+			int count = 0, count2 = 0;
 			while (iter.hasNext()) {
 				count++;
 				doubleBuffer.add(Double.valueOf(iter.next().trim()));
 
 				if (count == KDTreeSearcher.Dims) {
+					count2++;
+					if (count2 % QueryVectorsSamplingInterval != 0) {
+						// Skip this vector
+						doubleBuffer.clear();
+						count = 0;
+						continue;
+					}
+					
 					// We can build a key and insert it into the KDTree: new key
 					// => filename (value)
 					double[] newKey = new double[KDTreeSearcher.Dims];
@@ -163,17 +187,17 @@ public class KDTreeSearcher {
 
 					// Search the KDTree
 					// double[] deltas = new double[KDTreeSearcher.Dims];
+					// Hack! TODO: Use the top N matches for a given frame, not just the top match.
 					for (Object currentMatchedFilePathObj : kdTreeObj.nearest(
 							newKey, KDTreeSearcher.NumNeighbours)) {
-						// for (int i = 0; i < KDTreeSearcher.Dims; i++) {
-						// deltas[i] = newKey[i] -
-						// kdTreeObj.getKey(currentMatchedFilenameObj);
-						// }
-
 						String currentMatchedFile = (String) currentMatchedFilePathObj;
 						
-						// Register an occurrence of the parent file (movie) as the nearest match for this vector
+						/* Register an occurrence of the parent file (movie) as the nearest match for this vector. */
+						// Add the folder:
 						results.addOccurrence(new File(currentMatchedFile).getParentFile().getName());
+						
+						// Add the file:
+						// results.addOccurrence(currentMatchedFile);
 					}
 
 					// Clear the buffer of double values
@@ -213,6 +237,7 @@ public class KDTreeSearcher {
 						}
 					}
 				}
+				br.close();
 			} catch (IOException e) {
 				System.out.println("ERR: Failed to read a line in the file: "
 						+ child.getName());
@@ -246,7 +271,6 @@ public class KDTreeSearcher {
 			}
 
 			// All the vectors for this file have been inserted into the KDTree.
-			br.close();
 			return true;
 		} catch (Exception e1) {
 			// Exception in BufferedReader!
@@ -284,11 +308,9 @@ public class KDTreeSearcher {
 				+ " for queryFramesPathKey: " + queryFramesPathKey);
 		List<String> bestMatchedFramesUrl = new ArrayList<String>();
 
-/*D		queryFrameKey = "FeatureVectors/0wphXCXaWgtzk2ehm27WqMdPZNRYZ2bF/4.jpg.xml";
+/*		queryFrameKey = "FeatureVectors/0wphXCXaWgtzk2ehm27WqMdPZNRYZ2bF/4.jpg.xml";
 		File localFileCopy = downloadFile(queryFrameKey, "syncre-datasets", queryFrameKey, s3Client);*/
-/*R		queryFrameKey = "Videos/Annie Hall.avi";
-		File localFileCopy = downloadFile(queryFrameKey, "sincre-data", queryFrameKey, s3Client);*/
-//		listBucketInfoAndExit(s3Client, false);
+		S3FileUtils.listBucketInfoAndExit(s3Client, true, false);
 
 		SearchResults results = new SearchResults();
 		for (String childFileKey : S3FileUtils.listKeysInDirectory(queryFramesPathKey,
@@ -304,13 +326,16 @@ public class KDTreeSearcher {
 		// Delete the temporary directory recursively
 		S3FileUtils.deleteLocalFolder(queryFramesPathKey);
 
-		// Hack! TODO: Use the top N matches for a given frame, not just the top match.
+		// Pick top matches by combining results for all key frames under this query key
+		String nextFolderName = null;
 		for (int i = 0; i < NumSearchResults; i++) {
-			bestMatchedFramesUrl.add(results.heap.poll());
+			if ((nextFolderName = results.heap.poll()) == null)
+				break;
+			bestMatchedFramesUrl.add(nextFolderName);
 		}
 
-		System.out.println("The best matched frame for the query frame "
-				+ queryFramesPathKey + " was: " + bestMatchedFramesUrl.get(0));
+		System.out.println("The " + NumSearchResults + " best matched movies for the query key "
+				+ queryFramesPathKey + " were: " + bestMatchedFramesUrl.toString());
 
 		return bestMatchedFramesUrl;
 	}

@@ -28,7 +28,8 @@ import com.googlecode.javacv.cpp.opencv_core.IplImage;
 import com.googlecode.javacv.cpp.opencv_imgproc.CvHistogram;
 
 public class HistogramUtils {
-	private static final String imageDBDirectory = "C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/";
+//	private static final String imageDBDirectory = "C:/Users/vikmenon/Documents/VikramWorkingDirectory/EclipseWorkspace1/CBVRProject/Images/";
+	private static final String imageDBDirectory = "C:/Users/vikmenon/Downloads/11_14_14/Dataset1/keyframes/";
 	
 	private static final String supportedFormats = "(bmp|pbm|pgm|ppm|sr|ras|jpeg|jpg|jpe|jp2|tiff|tif|png)";
 	
@@ -38,7 +39,9 @@ public class HistogramUtils {
 	private static CanvasFrame canvas;
 	
 	private static final String[] queryImages = {
-			imageDBDirectory + "1413215054781.jpg",
+			//imageDBDirectory + "1413215054781.jpg",
+		imageDBDirectory + "17.jpg",
+		imageDBDirectory + "1413214988552.jpg",
 			imageDBDirectory + "cat.jpg",
 			imageDBDirectory + "cat1.jpg",
 			imageDBDirectory + "cat2.jpg",

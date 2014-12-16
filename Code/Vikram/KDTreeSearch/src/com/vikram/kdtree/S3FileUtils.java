@@ -45,7 +45,7 @@ public abstract class S3FileUtils {
 
 	public static List<String> listKeysInDirectory(String prefix,
 			String bucketName, AmazonS3 currS3Client, Boolean appendDelimiter) {
-		String delimiter = "/";
+		String delimiter = AWSDeploymentManager.S3PrefixDelimiter;
 		if (appendDelimiter && !prefix.endsWith(delimiter)) {
 			prefix += delimiter;
 		}
@@ -115,15 +115,21 @@ public abstract class S3FileUtils {
 	}
 
 	public static void listBucketInfoAndExit(AmazonS3 currS3Client,
-			Boolean showBucketContents) {
-		if (showBucketContents) {
-			for (String key : listKeysInDirectory("", "sincre-data",
+			Boolean listBucketContents, Boolean exitProgram) {
+		if (listBucketContents) {
+			// Rahul buckets
+//			String bucket = "sincre-data";
+			// Dave buckets
+			String bucket = "syncre-datasets";
+//			String bucket = "syncre-keyframes";
+			for (String key : listKeysInDirectory("", bucket,
 					currS3Client, false)) {
-				System.out.println("@sincre-data: " + key);
+				System.out.println(bucket + " CONTAINS: " + key);
 			}
-			// Dave-buckets: "syncre-datasets", "syncre-keyframes"
 		}
-		System.exit(0);
+		if (exitProgram) {
+			System.exit(0);
+		}
 	}
 }
 

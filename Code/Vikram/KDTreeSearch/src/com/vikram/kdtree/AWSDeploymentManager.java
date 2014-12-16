@@ -2,106 +2,117 @@ package com.vikram.kdtree;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.sqs.AmazonSQS;
-import com.amazonaws.services.sqs.AmazonSQSClient;
-import com.amazonaws.services.sqs.model.DeleteMessageRequest;
-import com.amazonaws.services.sqs.model.GetQueueUrlRequest;
-import com.amazonaws.services.sqs.model.ListQueuesResult;
-import com.amazonaws.services.sqs.model.Message;
-import com.amazonaws.services.sqs.model.ReceiveMessageRequest;
-import com.amazonaws.services.sqs.model.SendMessageRequest;
-import com.amazonaws.services.sqs.model.SendMessageResult;
 import com.google.gson.Gson;
 
 public class AWSDeploymentManager {
-	private static final Integer RATELIMIT_WAIT_TIME = 500;
-	
-	private static String SqsEndpoint = "https://sqs.us-east-1.amazonaws.com";
-	private static String ResponseEndpoint = "http://sincre-c-status:8701";
-	
-	private static String userPrefix = "/139012132121/";
-	private static String inQueue = "syncre-link-b-c";
-	private static String frameMetadataBucketName = "syncre-datasets";
-	
-	private static String InsertOperation = "0";
-	private static String SearchOperation = "1";
-	private static String ResponseKey = "Results";
-	
     private BasicAWSCredentials credentials;
-    private AmazonSQS sqsClient;
     private static volatile AWSDeploymentManager awsDeplMgr = new AWSDeploymentManager();
 	private static volatile KDTreeSearcher kdTreeSearcher = new KDTreeSearcher();
 	
+	// Server populates this queue and the main program waits/reads from it
+	public static final List<String> requestQueue = Collections.synchronizedList(new LinkedList<String>());
+	
+	public static final String LayerBRequestType = "POST";
+	public static final String S3PrefixDelimiter = "/";
+	public static final String RequestDelimiter = "\t| |\r?\n";
+	public static final String ResponseKey = "Process-Results";
+	public static final String ContentKey = "Content-Type";
+	public static final String ContentType = "application/json";
+	public Integer RequestPort = null;
+	public String ResponseEndpoint = null;
+	
+	private String frameMetadataBucketName = null;	//	"frames-test";
+	private String databaseMetadataDirPrefix = null;
+	private String queryMetadataDirPrefix = null;	//	"QueryVectors";
+	
+	private static final String InsertOperation = "0";
+	private static final String SearchOperation = "1";
+	
 	public static void main(String[] args) {
+		// Initialize the S3 client on the Metadata KDTree manager
+		kdTreeSearcher.startS3Client(awsDeplMgr.credentials);
+		
+		// Initialize the server that listens to Layer B
+		Thread requestReceiver = new Thread(new ElementalHttpServer());
+		requestReceiver.start();
+		
+		// Run until infinity
+		String sincreLayerCInput = null;
 		try {
-			String inQueueUrl = SqsEndpoint + userPrefix + inQueue;
-			
-			// Initialize the S3 client on the Metadata KDTree manager
-			kdTreeSearcher.startS3Client(awsDeplMgr.credentials);
-			
-			// Run until infinity
 			while (true) {
 				// Read messages from sincre-link-b-c
-				List<Message> sincreLayerCInput = awsDeplMgr.getMessagesFromQueue(inQueueUrl);
-				
-				System.out.println("\n\n--- Received " + sincreLayerCInput.size() + " messages ---");
-				
-				for (Message message : sincreLayerCInput) {
+				try {
+					synchronized (requestQueue) {
+						sincreLayerCInput = requestQueue.remove(0);
+					}
+					
+					System.out.println("\n\n--------------------------\n--- Received a message ---\n--------------------------");
+					System.out.println("The received message was: " + sincreLayerCInput);
 					/* Process this message :-
 					 * Based on type of message, to sincre-c-status:
 					 * Write SIFT metadata to KDTree and respond <OR> Query KDTree and send matches.
 					 */
-					String[] parts = message.getBody().split("\r?\n");
+					String[] parts = sincreLayerCInput.split(RequestDelimiter);
 					String s3Key = parts[0];
-					String oper = parts[1];
+					String oper = null;
+					try {
+						oper = parts[1];
+					} catch (ArrayIndexOutOfBoundsException e) {
+						oper = SearchOperation;
+					}
+					
 					System.out.println("(OPER, KEY): (" + oper + ", " + s3Key + ")");
 					
 					// Perform the requested operation
 					if (oper.equals(InsertOperation)) {
-						/* int numFrames = */
-						kdTreeSearcher.insertFrames(s3Key, frameMetadataBucketName);
+						s3Key = awsDeplMgr.databaseMetadataDirPrefix + S3PrefixDelimiter + s3Key;
+						kdTreeSearcher.insertFrames(s3Key, awsDeplMgr.frameMetadataBucketName);
 						
 						// To indicate that frames were added successfully:
-						//    postData(ResponseEndpoint, "INSERTED: " + numFrames + " frames (metadata)");
+						postData(awsDeplMgr.ResponseEndpoint, "OK");
 					}
 					else if (oper.equals(SearchOperation)) {
-						List<String> searchResultsList = kdTreeSearcher.searchFrames(s3Key, frameMetadataBucketName);
+						// "FeatureVectors/lSBJGXh6UMfhdzXPPKLqNefBCAzkgijO";
+						s3Key = awsDeplMgr.queryMetadataDirPrefix + S3PrefixDelimiter + s3Key;
+						List<String> searchResultsList = kdTreeSearcher.searchFrames(s3Key, awsDeplMgr.frameMetadataBucketName);
 						
 						// First entry should be the query frame key which doubles as a transaction ID, since SQS does not guarantee FIFO order.
 						searchResultsList.add(0, s3Key);
 						
 						// Return the best matched N frames
-						postData(ResponseEndpoint, new Gson().toJson(searchResultsList));
+						System.out.println("JSON: " + new Gson().toJson(searchResultsList));
+						postData(awsDeplMgr.ResponseEndpoint, new Gson().toJson(searchResultsList));
 					}
 					else {
-						System.out.println("WARN: Unrecognized message! MSG: " + message.toString() + "\nBODY: " + message.getBody());
+						System.out.println("WARN: Unrecognized message! MSG: " + sincreLayerCInput + "\nBODY: " + sincreLayerCInput);
 					}
-					
-					// Remove this message from the queue
-					awsDeplMgr.deleteMessageFromQueue(inQueueUrl, message);
 				}
-				
-				// Rate limit our AWS SQS requests
-				try {
-					Thread.sleep(RATELIMIT_WAIT_TIME);
-				} catch (InterruptedException e) {
-					System.out.println("ERR: InterruptedException while calling sleep() after SQS poll.");
+				catch(ArrayIndexOutOfBoundsException e) {
+					e.printStackTrace();
 				}
 			}
 		}
 		finally {
-			// Disconnect from the sqs queues
-			awsDeplMgr.shutdownSqs();
+			try {
+				requestReceiver.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
 	}
 	
 	public static void postData(String url, String messageBody) {
@@ -111,7 +122,8 @@ public class AWSDeploymentManager {
 
 	    try {
 	        // Add your data
-	    	httppost.setHeader(ResponseKey, messageBody);
+	    	httppost.addHeader(ContentKey, ContentType);
+	    	httppost.setEntity(new StringEntity(messageBody));
 	    	
 	        // Execute HTTP Post Request
 	        /* HttpResponse response = */
@@ -135,85 +147,21 @@ public class AWSDeploymentManager {
 	private AWSDeploymentManager() {
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("AwsCredentials.properties"));
+            properties.load(new FileInputStream("Config.properties"));
             this.credentials = new   BasicAWSCredentials(properties.getProperty("accessKey"),
                                                          properties.getProperty("secretKey"));
-            this.sqsClient = new AmazonSQSClient(this.credentials);
-            
-            /**
-             * Find endpoints here: http://docs.aws.amazon.com/general/latest/gr/rande.html
-             * Overrides the default endpoint for this client ("sqs.us-east-1.amazonaws.com")
-             */
-            this.sqsClient.setEndpoint(SqsEndpoint);
-            
-            /** You can use this in your web app where    AwsCredentials.properties is stored in web-inf/classes
-             */
-            //AmazonSQS sqs = new AmazonSQSClient(new ClasspathPropertiesFileCredentialsProvider());
+            this.ResponseEndpoint = properties.getProperty("responseEndpoint");
+            this.frameMetadataBucketName = properties.getProperty("frameMetadataBucketName");
+            this.queryMetadataDirPrefix = properties.getProperty("queryMetadataDirPrefix");
+            this.databaseMetadataDirPrefix = properties.getProperty("databaseMetadataDirPrefix");
+            this.RequestPort = Integer.valueOf(properties.getProperty("requestPort"));
         }
         catch(Exception e){
-            System.out.println("Exception while creating SQS client: " + e);
+            System.out.println("Exception while reading AWS credentials: " + e);
         }
 	}
     
     public static AWSDeploymentManager getInstance(){
         return awsDeplMgr;
-    }
- 
-    /**
-     * shuts down the SQS endpoint client
-     * @param
-     */
-    public void shutdownSqs(){
-        this.sqsClient.shutdown();
-    }
-    
-    /**
-     * returns the queueurl for for sqs queue if you pass in a name
-     * @param queueName
-     * @return
-     */
-    public String getQueueUrl(String queueName){
-        GetQueueUrlRequest getQueueUrlRequest = new GetQueueUrlRequest(queueName);
-        return this.sqsClient.getQueueUrl(getQueueUrlRequest).getQueueUrl();
-    }
- 
-    /**
-     * lists all your queue.
-     * @return
-     */
-    public ListQueuesResult listQueues(){
-       return this.sqsClient.listQueues();
-    }
- 
-    /**
-     * send a single message to your sqs queue
-     * @param queueUrl
-     * @param message
-     */
-    public void sendMessageToQueue(String queueUrl, String message){
-        SendMessageResult messageResult =  this.sqsClient.sendMessage(new SendMessageRequest(queueUrl, message));
-        System.out.println(messageResult.toString());
-    }
- 
-    /**
-     * gets messages from your queue
-     * @param queueUrl
-     * @return
-     */
-    public List<Message> getMessagesFromQueue(String queueUrl){
-       ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest(queueUrl);
-       List<Message> messages = sqsClient.receiveMessage(receiveMessageRequest).getMessages();
-       return messages;
-    }
- 
-    /**
-     * deletes a single message from your queue.
-     * @param queueUrl
-     * @param message
-     */
-    public void deleteMessageFromQueue(String queueUrl, Message message){
-        String messageRecieptHandle = message.getReceiptHandle();
-        System.out.println("Message to delete: " + message.getBody() + "." + message.getReceiptHandle());
-        sqsClient.deleteMessage(new DeleteMessageRequest(queueUrl, messageRecieptHandle));
     }
 }
