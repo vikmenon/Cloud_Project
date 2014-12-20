@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Syncre_LayerAB_WebService.LayerAB_WebService" CodeBehind="LayerAB_WebService.svc.cs" %>

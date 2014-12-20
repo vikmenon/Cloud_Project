@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="dirent.c">
+      <Filter>Utilities\FileRead</Filter>
+    </ClCompile>
+    <ClCompile Include="FileRead.cpp">
+      <Filter>Utilities\FileRead</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="dirent.h">
+      <Filter>Utilities\FileRead</Filter>
+    </ClInclude>
+    <ClInclude Include="FileRead.h">
+      <Filter>Utilities\FileRead</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{6b2896d3-13bf-49f9-b022-26c16425c1f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\FileRead">
+      <UniqueIdentifier>{239892b9-2c71-432c-839c-7978700c19d6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

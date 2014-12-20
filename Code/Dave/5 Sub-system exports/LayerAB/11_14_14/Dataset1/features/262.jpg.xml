@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<ImageFile>"262.jpg"</ImageFile>
+<Features type_id="opencv-matrix">
+  <rows>1</rows>
+  <cols>64</cols>
+  <dt>u</dt>
+  <data>
+    191 254 125 231 255 125 223 217 255 127 250 123 239 127 252 253 243
+    247 63 123 245 122 185 124 239 255 247 59 255 91 255 255 243 108 222
+    255 246 115 249 245 255 222 122 63 212 135 252 93 137 189 28 5 232
+    191 159 73 144 246 51 191 222 95 32 184</data></Features>
+</opencv_storage>
